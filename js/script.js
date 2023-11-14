@@ -32,20 +32,32 @@ setInterval(() => {
     canvas.height = window.innerHeight;
 
     //region MAP
-    let startX = 0;
+    let startX = Math.floor(-camX / CellSize);
+    let startY = Math.floor(-camY / CellSize);
+    let endX = Math.floor((canvas.width - camX) / CellSize);
+    let endY = Math.floor((canvas.width - camY) / CellSize);
+    for (let y = startY; y <= endY; y++) {
+        for (let x = startX; x <= endX; x++) {
+            let color = map[`${x};${y}`];
+            if (color !== undefined) {
+                ctx.fillStyle = color;
+                ctx.fillRect(x * CellSize + camX, y * CellSize + camY, CellSize, CellSize);
+            }
+        }
+    }
     //endregion
 
-    //region GRILLE
+    /*region GRILLE
     ctx.fillStyle = "black";
     // vertical
     for (let x = camX % CellSize; x < canvas.width; x += CellSize) {
-        //ctx.fillRect(x, 0, 1, canvas.height);
+        ctx.fillRect(x, 0, 1, canvas.height);
     }
     // horizontal
     for (let y = camY % CellSize; y < canvas.height; y += CellSize) {
-        //ctx.fillRect(0, y, canvas.width, 1);
+        ctx.fillRect(0, y, canvas.width, 1);
     }
-    //endregion
+    //endregion*/
 
     //region MOUSE
     ctx.strokeStyle = "black";
