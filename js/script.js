@@ -36,6 +36,9 @@ setInterval(() => {
     if(mouseLeft && shiftLeft) {
         camX = mouseX + mouseCamOffsetX;
         camY = mouseY + mouseCamOffsetY;
+    } else if (mouseLeft) {
+        // Draw
+        document.dispatchEvent(new CustomEvent("placepixel", {detail: {x: coordX, y: coordY}}));
     }
 
     //region AFFICHAGE
