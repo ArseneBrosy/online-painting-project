@@ -55,7 +55,7 @@ setInterval(() => {
             let color = map[`${x};${y}`];
             if (color !== undefined) {
                 ctx.fillStyle = color;
-                ctx.fillRect(x * CellSize + camX, y * CellSize + camY, CellSize, CellSize);
+                ctx.fillRect(x * CellSize + camX, y * CellSize + camY, CellSize + .5, CellSize + .5);
             }
         }
     }
