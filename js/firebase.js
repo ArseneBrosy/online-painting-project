@@ -16,6 +16,6 @@ onValue(ref(database), (snapshot) => {
 
 document.addEventListener("placepixel", (e) => {
   update(ref(database), {
-    [`${e.detail.x};${e.detail.y}`]: selectedColor
+    [`${e.detail.x};${e.detail.y}`]: (selectedColor === "#ffffff" ? null : selectedColor)
   });
 });

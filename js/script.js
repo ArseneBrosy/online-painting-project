@@ -36,7 +36,7 @@ setInterval(() => {
     if(mouseLeft && shiftLeft) {
         camX = mouseX + mouseCamOffsetX;
         camY = mouseY + mouseCamOffsetY;
-    } else if (mouseLeft) {
+    } else if (mouseLeft && !onPalette) {
         // Draw
         document.dispatchEvent(new CustomEvent("placepixel", {detail: {x: coordX, y: coordY}}));
     }
@@ -74,9 +74,11 @@ setInterval(() => {
     //endregion*/
 
     //region MOUSE
-    ctx.strokeStyle = selectedColor;
+    ctx.strokeStyle = "black";
+    ctx.fillStyle = selectedColor;
     ctx.lineWidth = 2;
     ctx.strokeRect(coordX * CellSize + camX, coordY * CellSize + camY, CellSize, CellSize);
+    ctx.fillRect(coordX * CellSize + camX + CellSize / 3, coordY * CellSize + camY + CellSize / 3, CellSize / 3, CellSize / 3);
     //endregion
 
     //endregion
