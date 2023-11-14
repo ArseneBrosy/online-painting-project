@@ -1,11 +1,11 @@
 let canvas = document.getElementById("renderer");
 let ctx = canvas.getContext("2d");
 
-//#region CONSTANTES
-let CELLSIZE = 30;
+// CONSTANTES
+let CellSize = 30;
 const ZOOM_SPEED = 1;
 
-//#region VARIABLES
+// VARIABLES
 let camX = 0;
 let camY = 0;
 
@@ -19,6 +19,8 @@ let coordX = 0;
 let coordY = 0;
 let shiftLeft = false;
 
+let map = {};
+
 setInterval(() => {
     if(mouseLeft && shiftLeft) {
         camX = mouseX + mouseCamOffsetX;
@@ -29,22 +31,26 @@ setInterval(() => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+    //region MAP
+    let startX = 0;
+    //endregion
+
     //region GRILLE
     ctx.fillStyle = "black";
     // vertical
-    for (let x = camX % CELLSIZE; x < canvas.width; x += CELLSIZE) {
-        ctx.fillRect(x, 0, 1, canvas.height);
+    for (let x = camX % CellSize; x < canvas.width; x += CellSize) {
+        //ctx.fillRect(x, 0, 1, canvas.height);
     }
     // horizontal
-    for (let y = camY % CELLSIZE; y < canvas.height; y += CELLSIZE) {
-        ctx.fillRect(0, y, canvas.width, 1);
+    for (let y = camY % CellSize; y < canvas.height; y += CellSize) {
+        //ctx.fillRect(0, y, canvas.width, 1);
     }
     //endregion
 
     //region MOUSE
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
-    ctx.strokeRect(coordX * CELLSIZE + camX, coordY * CELLSIZE + camY, CELLSIZE, CELLSIZE);
+    ctx.strokeRect(coordX * CellSize + camX, coordY * CellSize + camY, CellSize, CellSize);
     //endregion
 
     //endregion
@@ -53,8 +59,8 @@ setInterval(() => {
 document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    coordX = Math.floor((mouseX - camX) / CELLSIZE);
-    coordY = Math.floor((mouseY - camY) / CELLSIZE);
+    coordX = Math.floor((mouseX - camX) / CellSize);
+    coordY = Math.floor((mouseY - camY) / CellSize);
     document.querySelector("#coordinates").innerHTML = `${coordX} : ${coordY}`;
 });
 document.addEventListener("mousedown", (e) => {
@@ -79,17 +85,17 @@ document.addEventListener("mouseup", (e) => {
     }
 });
 document.addEventListener("wheel", (e) => {
-    let previousMouseX =  (mouseX - camX) / CELLSIZE;
-    let previousMouseY =  (mouseY - camY) / CELLSIZE;
-    CELLSIZE -= e.deltaY / 100 * ZOOM_SPEED;
-    if (CELLSIZE < 3) {
-        CELLSIZE = 3;
+    let previousMouseX =  (mouseX - camX) / CellSize;
+    let previousMouseY =  (mouseY - camY) / CellSize;
+    CellSize -= e.deltaY / 100 * ZOOM_SPEED;
+    if (CellSize < 3) {
+        CellSize = 3;
     }
-    let nowMouseX = (mouseX - camX) / CELLSIZE;
-    let nowMouseY = (mouseY - camY) / CELLSIZE;
-    camX += (nowMouseX - previousMouseX) * CELLSIZE;
-    camY += (nowMouseY - previousMouseY) * CELLSIZE;
-    coordX = Math.floor((mouseX - camX) / CELLSIZE);
-    coordY = Math.floor((mouseY - camY) / CELLSIZE);
+    let nowMouseX = (mouseX - camX) / CellSize;
+    let nowMouseY = (mouseY - camY) / CellSize;
+    camX += (nowMouseX - previousMouseX) * CellSize;
+    camY += (nowMouseY - previousMouseY) * CellSize;
+    coordX = Math.floor((mouseX - camX) / CellSize);
+    coordY = Math.floor((mouseY - camY) / CellSize);
     document.querySelector("#coordinates").innerHTML = `${coordX} : ${coordY}`;
 });
