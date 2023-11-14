@@ -3,6 +3,7 @@ let ctx = canvas.getContext("2d");
 
 //#region CONSTANTES
 let CELLSIZE = 30;
+const ZOOM_SPEED = 1;
 
 //#region VARIABLES
 let camX = 0;
@@ -76,4 +77,19 @@ document.addEventListener("mouseup", (e) => {
     if (e.which === 1) {
         mouseLeft = false;
     }
+});
+document.addEventListener("wheel", (e) => {
+    let previousMouseX =  (mouseX - camX) / CELLSIZE;
+    let previousMouseY =  (mouseY - camY) / CELLSIZE;
+    CELLSIZE -= e.deltaY / 100 * ZOOM_SPEED;
+    if (CELLSIZE < 3) {
+        CELLSIZE = 3;
+    }
+    let nowMouseX = (mouseX - camX) / CELLSIZE;
+    let nowMouseY = (mouseY - camY) / CELLSIZE;
+    camX += (nowMouseX - previousMouseX) * CELLSIZE;
+    camY += (nowMouseY - previousMouseY) * CELLSIZE;
+    coordX = Math.floor((mouseX - camX) / CELLSIZE);
+    coordY = Math.floor((mouseY - camY) / CELLSIZE);
+    document.querySelector("#coordinates").innerHTML = `${coordX} : ${coordY}`;
 });
