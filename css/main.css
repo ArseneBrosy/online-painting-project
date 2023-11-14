@@ -24,3 +24,25 @@ canvas {
     padding: 20px;
     user-select: none;
 }
+
+#palette {
+    background-color: white;
+    padding: 10px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    box-shadow: 0 0 30px 5px rgba(0, 0, 0, .25);
+    transform: translateX(-50%);
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+#palette button {
+    aspect-ratio: 1;
+    height: 30px;
+    padding: 0;
+    cursor: pointer;
+    margin: 2px;
+    border: 1px solid black;
+}

@@ -9,6 +9,9 @@ const ZOOM_SPEED = 1;
 let camX = 0;
 let camY = 0;
 
+let selectedColor = "#000000";
+let onPalette = false;
+
 // souris
 let mouseX = 0;
 let mouseY = 0;
@@ -20,6 +23,14 @@ let coordY = 0;
 let shiftLeft = false;
 
 let map = {};
+
+let palette = ["#bd0038", "#ff4500", "#ffa800", "#ffd636", "#00a468", "#00cc77", "#7fed56", "#00756f", "#009eaa", "#2e50a3", "#368fe9", "#5139f4", "#4a34c1", "#6b5cff", "#811e9f", "#b34ac0", "#ff3881", "#ff98a9", "#6d482e", "#9c6927", "#000000", "#898d90", "#d3d7da", "#ffffff"];
+
+let HTMLpalette = "";
+for (let color of palette) {
+    HTMLpalette += `<button onclick="selectedColor = '${color}'" style="background-color: ${color}"></button>`
+}
+document.querySelector("#palette").innerHTML = HTMLpalette;
 
 setInterval(() => {
     if(mouseLeft && shiftLeft) {
@@ -60,7 +71,7 @@ setInterval(() => {
     //endregion*/
 
     //region MOUSE
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = selectedColor;
     ctx.lineWidth = 2;
     ctx.strokeRect(coordX * CellSize + camX, coordY * CellSize + camY, CellSize, CellSize);
     //endregion
@@ -110,4 +121,10 @@ document.addEventListener("wheel", (e) => {
     coordX = Math.floor((mouseX - camX) / CellSize);
     coordY = Math.floor((mouseY - camY) / CellSize);
     document.querySelector("#coordinates").innerHTML = `${coordX} : ${coordY}`;
+});
+document.querySelector("#palette").addEventListener("mouseenter", (e) => {
+    onPalette = true;
+});
+document.querySelector("#palette").addEventListener("mouseleave", (e) => {
+    onPalette = false;
 });

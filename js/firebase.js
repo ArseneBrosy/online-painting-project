@@ -11,5 +11,5 @@ export const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
 
 onValue(ref(database), (snapshot) => {
-  map = snapshot.val();
+  //map = snapshot.val();
 });
