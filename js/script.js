@@ -16,6 +16,7 @@ let onPalette = false;
 let mouseX = 0;
 let mouseY = 0;
 let mouseLeft = false;
+let mouseRight = false;
 let mouseCamOffsetX = 0;
 let mouseCamOffsetY = 0;
 let coordX = 0;
@@ -33,7 +34,7 @@ for (let color of palette) {
 document.querySelector("#palette").innerHTML = HTMLpalette;
 
 setInterval(() => {
-    if(mouseLeft && shiftLeft) {
+    if((mouseLeft && shiftLeft) || mouseRight) {
         camX = mouseX + mouseCamOffsetX;
         camY = mouseY + mouseCamOffsetY;
     } else if (mouseLeft && !onPalette) {
@@ -61,18 +62,6 @@ setInterval(() => {
     }
     //endregion
 
-    /*region GRILLE
-    ctx.fillStyle = "black";
-    // vertical
-    for (let x = camX % CellSize; x < canvas.width; x += CellSize) {
-        ctx.fillRect(x, 0, 1, canvas.height);
-    }
-    // horizontal
-    for (let y = camY % CellSize; y < canvas.height; y += CellSize) {
-        ctx.fillRect(0, y, canvas.width, 1);
-    }
-    //endregion*/
-
     //region MOUSE
     ctx.strokeStyle = "black";
     ctx.fillStyle = selectedColor;
@@ -97,6 +86,11 @@ document.addEventListener("mousedown", (e) => {
         mouseCamOffsetX = camX - mouseX;
         mouseCamOffsetY = camY - mouseY;
     }
+    if (e.which === 3) {
+        mouseRight = true;
+        mouseCamOffsetX = camX - mouseX;
+        mouseCamOffsetY = camY - mouseY;
+    }
 });
 document.addEventListener("keydown", (e) => {
     if (e.code === "ShiftLeft") {
@@ -110,6 +104,9 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("mouseup", (e) => {
     if (e.which === 1) {
         mouseLeft = false;
+    }
+    if (e.which === 3) {
+        mouseRight = false;
     }
 });
 document.addEventListener("wheel", (e) => {
