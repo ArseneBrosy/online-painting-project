@@ -31,6 +31,7 @@ let HTMLpalette = "";
 for (let color of palette) {
     HTMLpalette += `<button onclick="selectedColor = '${color}'" style="background-color: ${color}"></button>`
 }
+HTMLpalette += `<input type="color" id="custom_color">`;
 document.querySelector("#palette").innerHTML = HTMLpalette;
 
 setInterval(() => {
@@ -129,4 +130,8 @@ document.querySelector("#palette").addEventListener("mouseenter", (e) => {
 });
 document.querySelector("#palette").addEventListener("mouseleave", (e) => {
     onPalette = false;
+});
+
+document.querySelector("#custom_color").addEventListener("input", (e) => {
+    selectedColor = e.target.value;
 });

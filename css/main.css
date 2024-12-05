@@ -46,3 +46,8 @@ canvas {
     margin: 2px;
     border: 1px solid black;
 }
+
+#custom_color {
+    grid-column: 1 / 13;
+    width: 100%;
+}
